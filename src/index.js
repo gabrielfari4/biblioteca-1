@@ -5,14 +5,31 @@ const link = caminhoArquivo[2]
 
 fs.readFile(link, 'utf-8', (erro, texto) => {
     if (erro) throw Error
-    verificaPalavrasDuplicadas(texto)
+    quebraEmParagrafos(texto)
+    // verificaPalavrasDuplicadas(texto)
 })
+
+const quebraEmParagrafos = (texto) => {
+    const paragrafos = texto.toLowerCase().split('\n');
+    const contagem = paragrafos.map((paragrafo) => {
+        return verificaPalavrasDuplicadas(paragrafo)
+    })
+    console.log(contagem);
+    
+}
+
+const limpaPalavras = (palavra) => {
+    return palavra.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
+}
 
 const verificaPalavrasDuplicadas = (texto) => {
     const listaPalavras = texto.split(' ');
     const resultado = {};
     listaPalavras.forEach(palavra => {
-        resultado[palavra] = (resultado[palavra] || 0) + 1
+        if (palavra.length >= 3) {
+            const palavraLimpa = limpaPalavras(palavra)
+            resultado[palavraLimpa] = (resultado[palavraLimpa] || 0) + 1
+        }
     });
-    console.log(resultado)
+    return resultado;
 }
