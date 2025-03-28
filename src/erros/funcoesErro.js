@@ -6,4 +6,5 @@ const trataErros = (erro) => {
         return 'Erro na aplicação'
     }
 }
-module.exports = trataErros;
+// module.exports = trataErros;
+export default trataErros;

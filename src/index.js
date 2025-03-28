@@ -1,19 +1,5 @@
-const fs = require('fs')
-const trataErros = require('./erros/funcoesErro')
 
-const caminhoArquivo = process.argv
-const link = caminhoArquivo[2]
-
-fs.readFile(link, 'utf-8', (erro, texto) => {
-    try {
-        if (erro) throw erro
-        contaPalavras(texto)        
-    } catch (erro) {
-        trataErros(erro)
-    }
-})
-
-const contaPalavras = (texto) => {
+export const contaPalavras = (texto) => {
     const paragrafos = extraiParagrafos(texto)
     const contagem = paragrafos.flatMap((paragrafo) => {
         if (!paragrafo) return [];
